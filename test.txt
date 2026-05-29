@@ -1,0 +1,7 @@
+cupy_ivp.DOP853 (atol=1e-12,rtol=1e-9) : 12011 Secs
+etdrk4cp (tol=1e-9) : 37531 secs
+etdrk4cp (cpu, tol=1e-7) 31447 secs
+etdrk4cp (tol=1e-7) : 8508 secs
+scipy.DOP853 (atol=1e-12,rtol=1e-9) : 76874 Secs
+scipy_old.vode (atol=1e-12,rtol=1e-9) : 69224 secs
+scipy_old.dop853 (atol=1e-12,rtol=1e-9) : 61836 secs
