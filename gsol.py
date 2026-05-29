@@ -51,7 +51,7 @@ class gsol:
                 svmod = getattr(import_module("scipy.integrate" if sn=="scipy" else sn),sm)
                 self.run=self.run_scipy
             case ["etdrk4cp"]:
-                svmod = getattr(import_module("etdrk4cp"),"etdrk4cp")
+                svmod = getattr(import_module("gsol.etdrk4cp"),"etdrk4cp")
                 sn="etdrk4cp"
                 self.run=self.run_etdrk4cp
             case [sn,sm] if sn =="scipy_old":
