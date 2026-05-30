@@ -134,3 +134,4 @@ class gsol:
             self.t+=r.h
             self.act_callback()
             r.recompute_stepsize(err,self.tol)
+            self.hlast=r.h
