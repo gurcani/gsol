@@ -11,11 +11,11 @@ from importlib import import_module
 get = lambda x : x.get() if ('cupy' in str(type(x))) else x
 
 class callbacks:
-    def __init__(self,dts,fncbs):
+    def __init__(self,dts,fncbs,tnexts=None):
         self.fncbs=fncbs
         self.dts=dts
         self.ts=[0.0 for l in range(len(dts)) ]
-        self.tnexts=dts.copy()
+        self.tnexts=dts.copy() if tnexts is None else tnexts
         self.dense_output=None
     def append(self,dt,fncb,t=0):
         self.fncbs.append(fncb)
@@ -25,11 +25,11 @@ class callbacks:
     def act(self,t,u):
         for l in range(len(self.dts)):
             if(t>=self.tnexts[l]):
+                self.tnexts[l]+=self.dts[l]
                 if(self.dense_output is not None):
-                    self.fncbs[l](self.tnexts[l],self.dense_output(self.tnexts[l]))
+                    self.fncbs[l](self.tnexts[l],self.dense_output(self.tnexts[l]).reshape(u.shape))
                 else:
                     self.fncbs[l](t,u)
-                self.tnexts[l]+=self.dts[l]
 
 class gsol:
     def __init__(self,fexp,t0,y0,t1,L,dtstep,callbacks=None,sv='scipy.DOP853',tol=1e-8,**kwargs):
@@ -39,6 +39,7 @@ class gsol:
         self.yshp=y0.shape
         self.dtype=y0.dtype
         self.cbs=callbacks
+        self.hlast=dtstep
         valid_bases = ["scipy""scipy_old","cupy_ivp","etdrk4cp"]
         smdef="DOP853"
         smdef_old="vode"
