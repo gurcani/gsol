@@ -49,7 +49,7 @@ class gsol:
                     print("scipy submodule:",sm,"not implemented.")
                     print("using",smdef,"instead.")
                     sm=smdef
-                svmod = getattr(import_module("scipy.integrate" if sn=="scipy" else sn),sm)
+                svmod = getattr(import_module("scipy.integrate" if sn=="scipy" else "gsol."+sn),sm)
                 self.run=self.run_scipy
             case ["etdrk4cp"]:
                 svmod = getattr(import_module("gsol.etdrk4cp"),"etdrk4cp")
