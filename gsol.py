@@ -25,7 +25,7 @@ class callbacks:
     def act(self,t,u):
         for l in range(len(self.dts)):
             if(t>=self.tnexts[l]):
-                self.tnexts[l]+=self.dts[l]
+                self.tnexts[l]=t+self.dts[l]
                 if(self.dense_output is not None):
                     self.fncbs[l](self.tnexts[l],self.dense_output(self.tnexts[l]).reshape(u.shape))
                 else:
